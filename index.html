@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-ANTIGRAVITY // Precision Advisory &amp; Digital Engineering</title>
+  <meta name="description" content="Ultra-high performance, hyper-vibrant 3D interactive agency platform. Precision advisory, CFO modelling, strategic assurance, and autonomous AI systems.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cosmic: '#030014',
+            surface: 'rgba(10, 10, 30, 0.65)',
+            cyan: { neon: '#00F0FF' },
+            magenta: { neon: '#FF007F' },
+            lime: { neon: '#39FF14' },
+            violet: { deep: '#8A2BE2' },
+            amber: { neon: '#FF9900' }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['Inter', 'sans-serif']
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2.5s infinite ease-in-out',
+            'float-slow': 'floatSlow 6s infinite ease-in-out',
+            'scanline': 'scanline 8s linear infinite',
+            'orbit': 'orbit 20s linear infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+              '50%': { opacity: 1, transform: 'scale(1.05)' }
+            },
+            floatSlow: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-12px) rotate(0.8deg)' }
+            },
+            scanline: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js (r128) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* Custom Cyber-Glassmorphism Styles */
+    body {
+      background-color: #030014;
+      color: #E2E8F0;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      selection-background-color: #00F0FF;
+      selection-color: #030014;
+    }
+    ::selection {
+      background: #00F0FF;
+      color: #030014;
+    }
+
+    /* Glass card with multi-layer blur & dynamic neon border */
+    .glass-card {
+      background: rgba(8, 10, 28, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 16px 50px -10px rgba(0, 240, 255, 0.2), inset 0 1px 0 0 rgba(0, 240, 255, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .glass-pill {
+      background: rgba(12, 16, 38, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Neon Gradient Text */
+    .text-neon-cyan {
+      color: #00F0FF;
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+    }
+    .text-neon-magenta {
+      color: #FF007F;
+      text-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+    }
+    .text-neon-lime {
+      color: #39FF14;
+      text-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+    }
+
+    /* Zero-G Floating state applied when Zero-G mode is toggled */
+    body.zero-g-active .zero-g-item {
+      animation: zeroGFloat 7s ease-in-out infinite alternate;
+    }
+    @keyframes zeroGFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(-1.5deg); }
+      100% { transform: translateY(-6px) rotate(1.2deg); }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030014;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00F0FF;
+    }
+
+    /* Subtle grid pattern background */
+    .bg-grid-cyber {
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Radial glows */
+    .radial-glow-top {
+      background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.18) 0%, rgba(138, 43, 226, 0.12) 35%, transparent 70%);
+    }
+    .radial-glow-magenta {
+      background: radial-gradient(circle at 80% 50%, rgba(255, 0, 127, 0.12) 0%, transparent 60%);
+    }
+  </style>
+</head>
+<body class="relative min-h-screen bg-cosmic text-slate-100 antialiased overflow-x-hidden">
+
+  <!-- 3D Interactive WebGL Canvas Backdrop -->
+  <div id="canvas-container" class="fixed inset-0 pointer-events-auto z-0 overflow-hidden">
+    <canvas id="webgl-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- Ambient Glow Overlays (Non-blocking) -->
+  <div class="fixed inset-0 pointer-events-none z-[1] radial-glow-top"></div>
+  <div class="fixed inset-0 pointer-events-none z-[1] radial-glow-magenta"></div>
+  <div class="fixed inset-0 pointer-events-none z-[1] bg-grid-cyber opacity-60"></div>
+
+  <!-- Main Content Wrap -->
+  <div class="relative z-10 flex flex-col min-h-screen pointer-events-none">
+
+    <!-- ==========================================================================
+         1. INTERACTIVE NAVIGATION HEADER
+         ========================================================================== -->
+    <header class="sticky top-0 z-50 w-full px-4 sm:px-8 pt-5 pb-3 pointer-events-auto transition-all duration-300">
+      <div class="max-w-7xl mx-auto flex items-center justify-between glass-pill px-5 sm:px-7 py-3 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] border border-white/10">
+        
+        <!-- Brand Logo -->
+        <a href="#hero" class="flex items-center gap-3 group cursor-pointer" onclick="triggerAudio('click')">
+          <div class="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#00F0FF] via-[#8A2BE2] to-[#FF007F] p-[1.5px] shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-transform group-hover:scale-105">
+            <div class="w-full h-full bg-[#030014] rounded-[10px] flex items-center justify-center">
+              <span class="font-mono font-black text-sm tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#39FF14]">
+                K//A
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display font-extrabold text-base tracking-wider text-white flex items-center gap-2">
+              K-ANTIGRAVITY
+              <span class="inline-block w-2 h-2 rounded-full bg-[#39FF14] shadow-[0_0_8px_#39FF14] animate-pulse"></span>
+            </span>
+            <span class="font-mono text-[9px] uppercase tracking-widest text-[#00F0FF]">Advisory &bull; WebGL Core</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="#practices" class="hover:text-[#00F0FF] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#00F0FF] hover:after:w-full after:transition-all" onclick="triggerAudio('hover')">Practices</a>
+          <a href="#workflow" class="hover:text-[#00F0FF] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#00F0FF] hover:after:w-full after:transition-all" onclick="triggerAudio('hover')">Approach</a>
+          <a href="#metrics" class="hover:text-[#00F0FF] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#00F0FF] hover:after:w-full after:transition-all" onclick="triggerAudio('hover')">Telemetry</a>
+          <a href="#insights" class="hover:text-[#00F0FF] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#00F0FF] hover:after:w-full after:transition-all" onclick="triggerAudio('hover')">Insights</a>
+          <a href="#contact" class="hover:text-[#00F0FF] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#00F0FF] hover:after:w-full after:transition-all" onclick="triggerAudio('hover')">Portal</a>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-3">
+          <!-- Audio Synthesizer Toggle -->
+          <button id="audio-toggle-btn" class="p-2 rounded-xl bg-white/5 border border-white/10 hover:border-[#00F0FF]/50 text-slate-400 hover:text-white transition-all" title="Toggle Sci-Fi Audio FX" onclick="toggleAudioEngine()">
+            <i data-lucide="volume-2" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Zero-G Toggle Mode -->
+          <button id="zero-g-toggle-btn" class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider uppercase border border-[#00F0FF]/30 bg-[#00F0FF]/10 text-[#00F0FF] hover:bg-[#00F0FF]/20 hover:border-[#00F0FF] transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.15)]" onclick="toggleZeroGravity()">
+            <i data-lucide="orbit" class="w-3.5 h-3.5 animate-spin" style="animation-duration: 8s;"></i>
+            <span id="zero-g-label">Zero-G: OFF</span>
+          </button>
+
+          <!-- Consultation CTA Button -->
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wide text-white bg-gradient-to-r from-[#00F0FF]/80 via-[#8A2BE2]/80 to-[#FF007F]/80 hover:from-[#00F0FF] hover:to-[#FF007F] border border-white/20 shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(255,0,127,0.5)] transition-all transform hover:-translate-y-0.5" onclick="triggerAudio('click')">
+            <span>Book Consultation</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+
+          <!-- Mobile Hamburger Menu Button -->
+          <button class="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300" onclick="toggleMobileMenu()">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 p-4 glass-card rounded-2xl flex-col gap-3 font-medium text-sm">
+        <a href="#practices" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200" onclick="toggleMobileMenu()">Practices</a>
+        <a href="#workflow" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200" onclick="toggleMobileMenu()">Execution Workflow</a>
+        <a href="#metrics" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200" onclick="toggleMobileMenu()">Telemetry</a>
+        <a href="#insights" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200" onclick="toggleMobileMenu()">Insights &amp; Case Studies</a>
+        <a href="#contact" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200" onclick="toggleMobileMenu()">Contact &bull; Consultation Portal</a>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         2. HERO SECTION
+         ========================================================================== -->
+    <section id="hero" class="relative pt-16 sm:pt-24 pb-20 px-4 sm:px-8 flex flex-col items-center justify-center min-h-[90vh]">
+      <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+        
+        <!-- Futuristic Protocol Telemetry Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/15 backdrop-blur-md mb-8 shadow-[0_0_20px_rgba(0,240,255,0.15)] pointer-events-auto">
+          <span class="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF] animate-ping"></span>
+          <span class="font-mono text-xs uppercase tracking-widest text-slate-300">
+            SYSTEM_READY &bull; WEBGL_PHYSICS_V3.8 &bull; 60FPS
+          </span>
+        </div>
+
+        <!-- Grand Cyberpunk Headline -->
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.08] text-white mb-6 uppercase">
+          PRECISION IN MOTION. <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FF007F] to-[#39FF14] drop-shadow-[0_0_35px_rgba(0,240,255,0.35)]">
+            INTEGRITY IN ADVISORY.
+          </span>
+        </h1>
+
+        <!-- Authoritative Subtitle (inspired by kraghu.com depth) -->
+        <p class="max-w-3xl text-base sm:text-lg md:text-xl text-slate-300 font-normal leading-relaxed mb-10 text-center">
+          Combining decades of enterprise financial advisory and statutory rigor with cutting-edge real-time 3D physics. Audit, Corporate Strategy, CFO Advisory &amp; Digital Automation for world-class founders and conglomerates.
+        </p>
+
+        <!-- CTA Buttons Group -->
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-16 pointer-events-auto">
+          <a href="#practices" class="px-7 py-3.5 rounded-xl font-display font-bold text-sm tracking-wide text-white bg-gradient-to-r from-[#00F0FF] to-[#8A2BE2] hover:from-[#00F0FF] hover:to-[#FF007F] shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:shadow-[0_0_40px_rgba(255,0,127,0.6)] transition-all transform hover:-translate-y-1 flex items-center gap-2" onclick="triggerAudio('click')">
+            <span>Explore Practices</span>
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </a>
+
+          <a href="#contact" class="px-7 py-3.5 rounded-xl font-display font-bold text-sm tracking-wide text-slate-200 glass-pill hover:border-[#00F0FF]/60 hover:text-white transition-all transform hover:-translate-y-1 flex items-center gap-2 shadow-[0_0_20px_rgba(0,0,0,0.5)]" onclick="triggerAudio('click')">
+            <span>Book Strategic Consultation</span>
+            <i data-lucide="sparkles" class="w-4 h-4 text-[#FF007F]"></i>
+          </a>
+
+          <!-- Instant Shockwave Trigger Button -->
+          <button onclick="triggerShockwavePulse(); triggerAudio('shockwave');" class="px-5 py-3.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase bg-[#FF007F]/10 border border-[#FF007F]/40 text-[#FF007F] hover:bg-[#FF007F]/20 hover:border-[#FF007F] hover:shadow-[0_0_25px_rgba(255,0,127,0.4)] transition-all flex items-center gap-2" title="Trigger Zero-G Gravitational Shockwave">
+            <i data-lucide="zap" class="w-4 h-4 animate-pulse"></i>
+            <span>Pulse Shockwave</span>
+          </button>
+        </div>
+
+        <!-- Live KPI Stat Counter Cards -->
+        <div id="metrics" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl pointer-events-auto">
+          <!-- Stat 1 -->
+          <div class="glass-card p-5 rounded-2xl text-left border-t border-t-[#00F0FF]/40 zero-g-item">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[11px] text-[#00F0FF] tracking-wider uppercase">Global Exposure</span>
+              <i data-lucide="globe" class="w-4 h-4 text-[#00F0FF]/70"></i>
+            </div>
+            <div class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight stat-counter" data-target="500" data-suffix="K+">0</div>
+            <div class="text-xs text-slate-400 mt-1">International Cross-Border Reach</div>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="glass-card p-5 rounded-2xl text-left border-t border-t-[#FF007F]/40 zero-g-item" style="animation-delay: -1.5s;">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[11px] text-[#FF007F] tracking-wider uppercase">Client Satisfaction</span>
+              <i data-lucide="check-circle" class="w-4 h-4 text-[#FF007F]/70"></i>
+            </div>
+            <div class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight stat-counter" data-target="54" data-suffix="K+">0</div>
+            <div class="text-xs text-slate-400 mt-1">High-Growth Businesses Supported</div>
+          </div>
+
+          <!-- Stat 3 -->
+          <div class="glass-card p-5 rounded-2xl text-left border-t border-t-[#39FF14]/40 zero-g-item" style="animation-delay: -3s;">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[11px] text-[#39FF14] tracking-wider uppercase">Integrated Matrix</span>
+              <i data-lucide="cpu" class="w-4 h-4 text-[#39FF14]/70"></i>
+            </div>
+            <div class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight stat-counter" data-target="7" data-suffix=" Practices">0</div>
+            <div class="text-xs text-slate-400 mt-1">Multidisciplinary Advisory Engine</div>
+          </div>
+
+          <!-- Stat 4 -->
+          <div class="glass-card p-5 rounded-2xl text-left border-t border-t-[#8A2BE2]/40 zero-g-item" style="animation-delay: -4.5s;">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[11px] text-[#8A2BE2] tracking-wider uppercase">Accuracy Metric</span>
+              <i data-lucide="shield-check" class="w-4 h-4 text-[#8A2BE2]/70"></i>
+            </div>
+            <div class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight stat-counter" data-target="99.8" data-decimal="1" data-suffix="%">0</div>
+            <div class="text-xs text-slate-400 mt-1">Statutory &amp; Audit Precision Rate</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. INTERACTIVE 3D CONTROL DASHBOARD (FLOATING HUD DOCK)
+         ========================================================================== -->
+    <div class="fixed bottom-6 right-6 z-40 pointer-events-auto">
+      <!-- Toggle Button for HUD -->
+      <button id="hud-toggle-btn" class="flex items-center gap-2 px-3 py-2 rounded-xl glass-pill hover:border-[#00F0FF] text-xs font-mono text-slate-300 hover:text-white shadow-[0_4px_25px_rgba(0,0,0,0.6)] transition-all mb-2 ml-auto" onclick="toggleHUD()">
+        <i data-lucide="sliders" class="w-4 h-4 text-[#00F0FF]"></i>
+        <span>3D HUD Controls</span>
+        <span id="hud-indicator" class="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF]"></span>
+      </button>
+
+      <!-- Expandable HUD Panel -->
+      <div id="hud-panel" class="glass-card p-4 rounded-2xl border border-white/15 w-80 shadow-[0_10px_40px_rgba(0,0,0,0.8)] flex flex-col gap-3.5 backdrop-blur-2xl">
+        <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#39FF14] animate-ping"></span>
+            <span class="font-mono text-xs font-bold text-white tracking-wider uppercase">WebGL Physics Engine</span>
+          </div>
+          <span id="fps-counter" class="font-mono text-[11px] text-[#00F0FF]">60 FPS</span>
+        </div>
+
+        <!-- Force Field Mode Selector -->
+        <div>
+          <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Force Field Physics:</label>
+          <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono">
+            <button class="hud-mode-btn py-1.5 px-2 rounded-lg bg-[#00F0FF]/20 text-[#00F0FF] border border-[#00F0FF]/50 hover:bg-[#00F0FF]/30 transition-all font-bold" onclick="setForceField('repel', this)">Repel</button>
+            <button class="hud-mode-btn py-1.5 px-2 rounded-lg bg-white/5 text-slate-300 border border-white/10 hover:border-white/30 transition-all" onclick="setForceField('vortex', this)">Vortex</button>
+            <button class="hud-mode-btn py-1.5 px-2 rounded-lg bg-white/5 text-slate-300 border border-white/10 hover:border-white/30 transition-all" onclick="setForceField('float', this)">Zero-G</button>
+          </div>
+        </div>
+
+        <!-- Color Palette Theme Selector -->
+        <div>
+          <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Color Spectrum Theme:</label>
+          <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono">
+            <button class="hud-theme-btn py-1.5 px-2 rounded-lg bg-[#00F0FF]/20 text-[#00F0FF] border border-[#00F0FF]/50 font-bold" onclick="setColorTheme('cyberpunk', this)">Cyberpunk</button>
+            <button class="hud-theme-btn py-1.5 px-2 rounded-lg bg-white/5 text-slate-300 border border-white/10 hover:border-white/30" onclick="setColorTheme('synthwave', this)">Synthwave</button>
+            <button class="hud-theme-btn py-1.5 px-2 rounded-lg bg-white/5 text-slate-300 border border-white/10 hover:border-white/30" onclick="setColorTheme('emerald', this)">Emerald</button>
+          </div>
+        </div>
+
+        <!-- Particle Density Controller -->
+        <div>
+          <div class="flex justify-between font-mono text-[11px] text-slate-400 mb-1">
+            <span>Particle Count:</span>
+            <span id="particle-count-label" class="text-white font-bold">12,000</span>
+          </div>
+          <input type="range" min="4000" max="25000" step="2000" value="12000" id="particle-slider" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#00F0FF]" oninput="updateParticleCount(this.value)">
+        </div>
+
+        <!-- Shockwave Action -->
+        <button onclick="triggerShockwavePulse(); triggerAudio('shockwave');" class="w-full py-2 rounded-xl bg-gradient-to-r from-[#FF007F] to-[#8A2BE2] hover:opacity-90 font-mono text-xs font-bold text-white tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(255,0,127,0.4)] flex items-center justify-center gap-1.5">
+          <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+          <span>Fire Gravitational Shockwave</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         4. INTERACTIVE PRACTICE AREAS GRID (INSPIRED BY KRAGHU.COM STRUCTURE)
+         ========================================================================== -->
+    <section id="practices" class="py-24 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <div class="flex items-center gap-2 font-mono text-xs text-[#00F0FF] uppercase tracking-widest mb-3">
+            <span class="inline-block w-6 h-[1px] bg-[#00F0FF]"></span>
+            <span>01 // Core Competencies</span>
+          </div>
+          <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight uppercase">
+            Multidisciplinary <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#39FF14]">Advisory Practices.</span>
+          </h2>
+        </div>
+        <p class="max-w-md text-slate-400 text-sm leading-relaxed">
+          Six integrated pillars engineered to advise enterprises from seed incorporation to public listing, cross-border restructuring, and algorithmic compliance.
+        </p>
+      </div>
+
+      <!-- Practice Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pointer-events-auto">
+
+        <!-- Card 1: CFO Advisory & Modelling -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#00F0FF]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/25 font-bold">01 // CFO</span>
+              <span class="text-emerald-400 flex items-center gap-1.5"><i data-lucide="activity" class="w-3.5 h-3.5"></i> Active Engine</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#00F0FF] transition-colors">
+              CFO Advisory &amp; Financial Modelling
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              Predictive financial planning, runway analysis, unit economics optimization, and fractional CFO governance for rapid scale-ups and venture-backed entities.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Valuation Models</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Cash Flow Forecasting</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Board Reporting</span>
+            </div>
+          </div>
+
+          <!-- Expandable Details Drawer Toggle -->
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-1', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#00F0FF] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View Analysis Breakdown &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-1" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• Median Burn Reduction:</span> <strong class="text-[#39FF14]">31.4%</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Audit-Ready Models:</span> <strong class="text-white">100%</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• FP&amp;A Automation:</span> <strong class="text-[#00F0FF]">Real-Time</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Audit & Strategic Assurance -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item" style="animation-delay: -1s;">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#FF007F]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#FF007F]/10 text-[#FF007F] border border-[#FF007F]/25 font-bold">02 // ASSURANCE</span>
+              <span class="text-[#00F0FF] flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5"></i> Strict Rigor</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#FF007F] transition-colors">
+              Audit &amp; Strategic Assurance
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              Technology-enabled statutory, internal, and forensic audits that deliver deep stakeholder confidence, regulatory adherence, and operational risk mitigation.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Statutory Audit</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Internal Controls (IFCoFR)</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Forensics</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-2', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#FF007F] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View Assurance Matrix &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-2" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• Zero-Deviation Track:</span> <strong class="text-[#FF007F]">99.8%</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Forensic Traceability:</span> <strong class="text-white">Full Chain</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Multi-Entity Support:</span> <strong class="text-[#39FF14]">Global</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Startup Advisory & Capital Growth -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item" style="animation-delay: -2s;">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#39FF14]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#39FF14]/10 text-[#39FF14] border border-[#39FF14]/25 font-bold">03 // VENTURE</span>
+              <span class="text-purple-400 flex items-center gap-1.5"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Hyper-Scale</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#39FF14] transition-colors">
+              Startup Advisory &amp; Capital Growth
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              From Delaware/Singapore flipping to Series A-C fundraising readiness, ESOP scheme design, and cross-border investor data rooms.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Cap Table Arch</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Series Readiness</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">ESOP Framework</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-3', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#39FF14] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View Venture Metrics &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-3" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• Seed-to-Series Close:</span> <strong class="text-[#39FF14]">&gt; $850M</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Deal Velocity Gain:</span> <strong class="text-white">+48% Faster</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• DD Compliance:</span> <strong class="text-[#00F0FF]">100% Pass</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Tax, Legal & Regulatory Compliance -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item" style="animation-delay: -3s;">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#8A2BE2]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#8A2BE2]/10 text-[#8A2BE2] border border-[#8A2BE2]/25 font-bold">04 // TAX &amp; LEGAL</span>
+              <span class="text-emerald-400 flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> Treaty Synced</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#8A2BE2] transition-colors">
+              Tax, Legal &amp; Regulatory Compliance
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              International tax optimization, transfer pricing benchmarking, GST compliance automation, and representation before statutory appellate authorities.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Cross-Border Tax</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Transfer Pricing</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">GST Dispute Arch</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-4', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#8A2BE2] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View Regulatory Scope &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-4" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• DTAA Treaties Covered:</span> <strong class="text-white">42 Jurisdictions</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Litigative Settlement:</span> <strong class="text-[#8A2BE2]">94.2% Success</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Filing Automation:</span> <strong class="text-[#39FF14]">Zero-Lag</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: M&A Strategy & Transactions -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item" style="animation-delay: -4s;">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#00F0FF]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/25 font-bold">05 // M&amp;A</span>
+              <span class="text-rose-400 flex items-center gap-1.5"><i data-lucide="git-merge" class="w-3.5 h-3.5"></i> Deal Execution</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#00F0FF] transition-colors">
+              M&amp;A Strategy &amp; Transactions
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              End-to-end transaction advisory, buy-side / sell-side due diligence, valuation structuring, and seamless post-merger accounting integration.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Financial DD</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Synergy Analysis</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Post-Merger Ops</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-5', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#00F0FF] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View Transaction Deck &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-5" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• Completed Volume:</span> <strong class="text-white">$1.2B+</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• DD Red Flag Catch:</span> <strong class="text-[#FF007F]">100%</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Valuation Variance:</span> <strong class="text-[#00F0FF]">&plusmn;1.4%</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Business Automation & AI Systems -->
+        <div class="glass-card p-7 rounded-3xl flex flex-col justify-between group relative overflow-hidden zero-g-item" style="animation-delay: -5s;">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-[#39FF14]/15 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs text-slate-400 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-[#39FF14]/10 text-[#39FF14] border border-[#39FF14]/25 font-bold">06 // AI &amp; OPS</span>
+              <span class="text-[#39FF14] flex items-center gap-1.5"><i data-lucide="bot" class="w-3.5 h-3.5"></i> Autonomous</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-3 group-hover:text-[#39FF14] transition-colors">
+              Business Automation &amp; AI Systems
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              Custom AI pipelines, ERP middleware orchestration, autonomous invoice reconciliation bots, and real-time executive cockpit dashboards.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">Autonomous Reconcile</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">LLM Analytics</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-slate-300">ERP Sync</span>
+            </div>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <button onclick="toggleCardDrawer('drawer-6', this); triggerAudio('click');" class="w-full flex items-center justify-between text-xs font-mono font-bold text-[#39FF14] hover:text-white transition-colors">
+              <span class="drawer-btn-text">View AI Architecture &rarr;</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform duration-300 drawer-icon"></i>
+            </button>
+            <div id="drawer-6" class="hidden mt-4 pt-3 border-t border-white/5 text-xs text-slate-400 space-y-2 font-mono">
+              <div class="flex justify-between text-slate-300"><span>• Manual Hours Saved:</span> <strong class="text-[#39FF14]">&gt; 12,000 hrs/yr</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Processing Speed:</span> <strong class="text-white">Sub-Second</strong></div>
+              <div class="flex justify-between text-slate-300"><span>• Error Margin:</span> <strong class="text-[#00F0FF]">0.001%</strong></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. 4-STEP EXECUTION WORKFLOW (INTERACTIVE STEPPER)
+         ========================================================================== -->
+    <section id="workflow" class="py-24 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 font-mono text-xs text-[#FF007F] uppercase tracking-widest mb-3">
+          <span class="inline-block w-6 h-[1px] bg-[#FF007F]"></span>
+          <span>02 // Execution Blueprint</span>
+          <span class="inline-block w-6 h-[1px] bg-[#FF007F]"></span>
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight uppercase">
+          Precision Engineering in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF007F] via-[#8A2BE2] to-[#00F0FF]">4 Phases.</span>
+        </h2>
+        <p class="text-slate-400 text-sm mt-4">
+          A tested operating methodology designed to eliminate regulatory friction, safeguard shareholder value, and accelerate market expansion.
+        </p>
+      </div>
+
+      <!-- Interactive Stepper Navigation -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8 pointer-events-auto">
+        <button onclick="setActiveStep(1)" id="step-tab-1" class="step-tab glass-card p-4 rounded-2xl text-left border-l-4 border-l-[#00F0FF] bg-[#00F0FF]/10 text-white transition-all">
+          <div class="font-mono text-xs text-[#00F0FF] mb-1 font-bold">PHASE 01</div>
+          <div class="font-display font-bold text-sm">Understand Profile</div>
+        </button>
+
+        <button onclick="setActiveStep(2)" id="step-tab-2" class="step-tab glass-card p-4 rounded-2xl text-left border-l-4 border-l-transparent text-slate-400 hover:text-white transition-all">
+          <div class="font-mono text-xs text-slate-500 mb-1 font-bold">PHASE 02</div>
+          <div class="font-display font-bold text-sm">Structure Right</div>
+        </button>
+
+        <button onclick="setActiveStep(3)" id="step-tab-3" class="step-tab glass-card p-4 rounded-2xl text-left border-l-4 border-l-transparent text-slate-400 hover:text-white transition-all">
+          <div class="font-mono text-xs text-slate-500 mb-1 font-bold">PHASE 03</div>
+          <div class="font-display font-bold text-sm">Precision in Numbers</div>
+        </button>
+
+        <button onclick="setActiveStep(4)" id="step-tab-4" class="step-tab glass-card p-4 rounded-2xl text-left border-l-4 border-l-transparent text-slate-400 hover:text-white transition-all">
+          <div class="font-mono text-xs text-slate-500 mb-1 font-bold">PHASE 04</div>
+          <div class="font-display font-bold text-sm">Scale &amp; Automate</div>
+        </button>
+      </div>
+
+      <!-- Active Step Interactive Showcase Container -->
+      <div class="glass-card p-8 sm:p-12 rounded-3xl border border-white/10 relative overflow-hidden pointer-events-auto zero-g-item">
+        <div id="step-content" class="relative z-10 transition-opacity duration-300">
+          <!-- Step 1 Details (Default) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7">
+              <span class="inline-block px-3 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] font-mono text-xs font-bold mb-4 border border-[#00F0FF]/30">
+                STEP 01 // DIAGNOSTIC &amp; RISK AUDIT
+              </span>
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-white mb-4">
+                Understand Business, Cap-Table &amp; Risk Vectors
+              </h3>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                Before formulating advisory positions, we conduct an exhaustive forensic assessment of your corporate anatomy: revenue recognition policies, cross-border treaty exposures, cap-table debt covenants, and regulatory compliance obligations.
+              </p>
+              <div class="space-y-3 font-mono text-xs text-slate-300">
+                <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#00F0FF]"></i> 360-degree Cap Table &amp; Shareholder Agreement Scan</div>
+                <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#00F0FF]"></i> Multi-jurisdictional Transfer Pricing &amp; PE Risk Audit</div>
+                <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#00F0FF]"></i> Identification of Latent Balance Sheet Vulnerabilities</div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-black/40 p-6 rounded-2xl border border-white/10 font-mono text-xs text-slate-300">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                <span class="text-[#00F0FF]">// DIAGNOSTIC_TELEMETRY</span>
+                <span class="text-emerald-400">STATUS: VERIFIED</span>
+              </div>
+              <div class="space-y-2.5">
+                <div class="flex justify-between"><span>Audit Vectors Analyzed:</span> <span class="text-white font-bold">142 Factors</span></div>
+                <div class="flex justify-between"><span>Regulatory Gap Detection:</span> <span class="text-[#39FF14] font-bold">0 Latent Flaws</span></div>
+                <div class="flex justify-between"><span>Average Diagnostic Turnaround:</span> <span class="text-white font-bold">72 Hours</span></div>
+                <div class="flex justify-between"><span>Partner-Led Involvement:</span> <span class="text-[#00F0FF] font-bold">100% Guaranteed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. INSIGHTS & GLOBAL TELEMETRY
+         ========================================================================== -->
+    <section id="insights" class="py-24 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <div class="flex items-center gap-2 font-mono text-xs text-[#39FF14] uppercase tracking-widest mb-3">
+            <span class="inline-block w-6 h-[1px] bg-[#39FF14]"></span>
+            <span>03 // Enterprise Impact</span>
+          </div>
+          <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight uppercase">
+            Proven Advisory <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#39FF14] via-[#00F0FF] to-[#8A2BE2]">Case Studies.</span>
+          </h2>
+        </div>
+        <p class="max-w-md text-slate-400 text-sm leading-relaxed">
+          Measurable, high-stakes outcomes achieved for prominent startups, cross-border technology firms, and multi-generational business empires.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pointer-events-auto">
+        <!-- Case 1 -->
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border-t-2 border-t-[#00F0FF] zero-g-item">
+          <div class="font-mono text-xs text-[#00F0FF] mb-2 uppercase tracking-wider">Fintech Unicorn // Cross-Border</div>
+          <h3 class="font-display font-bold text-lg text-white mb-3">Series C Readiness &amp; US-India Inversion</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-6">
+            Architected full Delaware-India flip structure with zero tax friction, resulting in seamless $120M Series C institutional close and automated multi-currency reporting.
+          </p>
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400">Impact Metric:</span>
+            <span class="text-[#00F0FF] font-bold">+42% Capital Efficiency</span>
+          </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border-t-2 border-t-[#FF007F] zero-g-item" style="animation-delay: -1.5s;">
+          <div class="font-mono text-xs text-[#FF007F] mb-2 uppercase tracking-wider">Healthcare Conglomerate // Assurance</div>
+          <h3 class="font-display font-bold text-lg text-white mb-3">Multi-Jurisdictional Statutory Audit</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-6">
+            Led comprehensive audit across 14 hospital entities with zero regulatory qualifications, establishing automated internal controls over financial reporting (ICFR).
+          </p>
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400">Impact Metric:</span>
+            <span class="text-[#FF007F] font-bold">Zero-Defect Sign-off</span>
+          </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border-t-2 border-t-[#39FF14] zero-g-item" style="animation-delay: -3s;">
+          <div class="font-mono text-xs text-[#39FF14] mb-2 uppercase tracking-wider">Enterprise SaaS // AI Automation</div>
+          <h3 class="font-display font-bold text-lg text-white mb-3">Autonomous Reconciliation Machine</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-6">
+            Deployed automated reconciliation pipeline interfacing with SAP and payment gateways, eliminating 1,400+ hours of manual reconciliation per fiscal quarter.
+          </p>
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400">Impact Metric:</span>
+            <span class="text-[#39FF14] font-bold">99.99% Autonomy Rate</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. FOOTER & CONTACT PORTAL
+         ========================================================================== -->
+    <section id="contact" class="py-24 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+      <div class="glass-card p-8 sm:p-14 rounded-3xl border border-white/15 relative overflow-hidden pointer-events-auto zero-g-item">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+          
+          <!-- Contact Left: Office Coordinates -->
+          <div class="lg:col-span-5">
+            <div class="inline-flex items-center gap-2 font-mono text-xs text-[#00F0FF] uppercase tracking-widest mb-3">
+              <span class="inline-block w-6 h-[1px] bg-[#00F0FF]"></span>
+              <span>04 // Connect with Leadership</span>
+            </div>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight uppercase mb-4">
+              Initiate Strategic Dialogue.
+            </h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-8">
+              Every engagement is led directly by experienced partners. Reach out to schedule an executive consultation across our Bengaluru headquarters or global hubs.
+            </p>
+
+            <div class="space-y-5 font-mono text-xs text-slate-300 mb-8">
+              <div class="flex items-start gap-3">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#00F0FF] mt-0.5 shrink-0"></i>
+                <div>
+                  <strong class="text-white block">Bengaluru HQ:</strong>
+                  <span>#281, K. R Pinnacle, II Floor, 7th Main, BTM II Stage, Bengaluru, Karnataka 560076</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#FF007F] mt-0.5 shrink-0"></i>
+                <div>
+                  <strong class="text-white block">Global Hubs:</strong>
+                  <span>Silicon Valley &bull; London &bull; Singapore &bull; Hyderabad</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <i data-lucide="mail" class="w-4 h-4 text-[#39FF14] shrink-0"></i>
+                <a href="mailto:contact@k-antigravity.com" class="hover:text-[#39FF14] transition-colors">contact@k-antigravity.com</a>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <i data-lucide="phone" class="w-4 h-4 text-[#8A2BE2] shrink-0"></i>
+                <a href="tel:+918026680897" class="hover:text-[#8A2BE2] transition-colors">+91 80 2668 0897 / Direct Line</a>
+              </div>
+            </div>
+
+            <!-- Social badges -->
+            <div class="flex items-center gap-3">
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#00F0FF] text-slate-300 hover:text-white transition-all">
+                <i data-lucide="linkedin" class="w-4 h-4"></i>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#00F0FF] text-slate-300 hover:text-white transition-all">
+                <i data-lucide="twitter" class="w-4 h-4"></i>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#00F0FF] text-slate-300 hover:text-white transition-all">
+                <i data-lucide="github" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Right: Futuristic Interactive Form -->
+          <div class="lg:col-span-7 bg-black/50 p-6 sm:p-8 rounded-2xl border border-white/10">
+            <h3 class="font-display font-bold text-xl text-white mb-2">Request Executive Consultation</h3>
+            <p class="text-xs text-slate-400 mb-6 font-mono">Guaranteed confidential review &bull; Response within 1 business day</p>
+
+            <form id="consultation-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Full Name *</label>
+                  <input type="text" name="name" required placeholder="e.g. Arjun Ramanathan" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all">
+                </div>
+                <div>
+                  <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Corporate Email *</label>
+                  <input type="email" name="email" required placeholder="arjun@company.com" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Entity / Company</label>
+                  <input type="text" name="company" placeholder="e.g. Horizon Global Systems" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all">
+                </div>
+                <div>
+                  <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Practice Discipline *</label>
+                  <select name="discipline" required class="w-full px-4 py-2.5 rounded-xl bg-[#0a0c20] border border-white/15 focus:border-[#00F0FF] focus:outline-none text-sm text-white font-sans transition-all">
+                    <option value="CFO Advisory">CFO Advisory &amp; Financial Modelling</option>
+                    <option value="Audit & Assurance">Audit &amp; Strategic Assurance</option>
+                    <option value="Startup Advisory">Startup Advisory &amp; Capital Growth</option>
+                    <option value="Tax & Legal">Tax, Legal &amp; Regulatory Compliance</option>
+                    <option value="M&A Strategy">M&amp;A Strategy &amp; Transactions</option>
+                    <option value="Business Automation">Business Automation &amp; AI Systems</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-mono text-[11px] text-slate-400 mb-1.5 uppercase">Scope / Objective Brief</label>
+                <textarea rows="3" name="message" placeholder="Outline your key requirements, timelines, or cross-border considerations..." class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all"></textarea>
+              </div>
+
+              <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl font-display font-bold text-sm tracking-wider uppercase text-white bg-gradient-to-r from-[#00F0FF] via-[#8A2BE2] to-[#FF007F] hover:opacity-95 shadow-[0_0_25px_rgba(0,240,255,0.4)] transition-all flex items-center justify-center gap-2">
+                <span>Transmit Consultation Request</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+
+              <div id="form-feedback" class="hidden font-mono text-xs text-center py-2 text-[#39FF14] bg-[#39FF14]/10 rounded-xl border border-[#39FF14]/30">
+                // TRANSMISSION_CONFIRMED: Partner team dispatched to review docket.
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Copyright & Architecture Notice -->
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-mono gap-4">
+        <div>
+          &copy; 2026 K-ANTIGRAVITY // All Rights Reserved. Engineered with Three.js &amp; Tailwind CSS.
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-slate-300">Privacy Protocol</a>
+          <a href="#" class="hover:text-slate-300">Statutory Charter</a>
+          <a href="#" class="hover:text-slate-300">Zero-G Core V3.8</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ==========================================================================
+       THREE.JS WEBGL 3D PHYSICS PIPELINE & INTERACTIVE ENGINE
+       ========================================================================== -->
+  <script>
+    // --- State & Variables ---
+    let scene, camera, renderer;
+    let particleSystem, particleGeometry, particlePositions, particleVelocities, particleBasePositions, particleColors;
+    let currentParticleCount = 12000;
+    let currentForceField = 'repel'; // 'repel', 'vortex', 'float'
+    let currentTheme = 'cyberpunk'; // 'cyberpunk', 'synthwave', 'emerald'
+    let isZeroGravity = false;
+    let isAudioEnabled = true;
+
+    // Floating 3D Geometric Meshes
+    let icosahedronMesh, torusKnotMesh, octahedronMesh;
+    let clock = new THREE.Clock();
+
+    // Mouse coordinates mapped to 3D world plane
+    let mouse = new THREE.Vector2(-9999, -9999);
+    let targetVector = new THREE.Vector3(-9999, -9999, 0);
+    let raycaster = new THREE.Raycaster();
+    let plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+    // Shockwave State
+    let shockwaves = []; // { center: Vector3, radius: number, maxRadius: number, strength: number, active: boolean }
+
+    // Color Palettes
+    const PALETTES = {
+      cyberpunk: [
+        new THREE.Color(0x00F0FF), // Electric Cyan
+        new THREE.Color(0xFF007F), // Neon Magenta
+        new THREE.Color(0x8A2BE2), // Deep Violet
+        new THREE.Color(0x39FF14)  // Lime Glow
+      ],
+      synthwave: [
+        new THREE.Color(0xFF007F), // Hot Pink
+        new THREE.Color(0xFF9900), // Solar Amber
+        new THREE.Color(0x7928CA), // Electric Purple
+        new THREE.Color(0xFF0055)  // Crimson Neon
+      ],
+      emerald: [
+        new THREE.Color(0x39FF14), // Lime Glow
+        new THREE.Color(0x00FFA3), // Aquamarine
+        new THREE.Color(0x00F0FF), // Cyan
+        new THREE.Color(0x0A2540)  // Deep Oceanic
+      ]
+    };
+
+    // --- Web Audio Synthesizer (Procedural Zero-G Sci-Fi Sound FX) ---
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function triggerAudio(type) {
+      if (!isAudioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (type === 'hover') {
+          // Delicate high-frequency glass chirp
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1400, now);
+          osc.frequency.exponentialRampToValueAtTime(2200, now + 0.06);
+          gain.gain.setValueAtTime(0.03, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.07);
+        } else if (type === 'click') {
+          // Snappy holographic click
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.12);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.13);
+        } else if (type === 'shockwave') {
+          // Low resonant sub-bass gravitational pulse
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.exponentialRampToValueAtTime(32, now + 0.45);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.52);
+        }
+      } catch (e) {
+        // Audio synthesis fallback silently
+      }
+    }
+
+    function toggleAudioEngine() {
+      isAudioEnabled = !isAudioEnabled;
+      const btn = document.getElementById('audio-toggle-btn');
+      if (btn) {
+        btn.innerHTML = isAudioEnabled 
+          ? '<i data-lucide="volume-2" class="w-4 h-4 text-[#00F0FF]"></i>' 
+          : '<i data-lucide="volume-x" class="w-4 h-4 text-slate-500"></i>';
+        lucide.createIcons();
+      }
+    }
+
+    // --- Three.js Initialization ---
+    function initThree() {
+      const container = document.getElementById('canvas-container');
+      const canvas = document.getElementById('webgl-canvas');
+
+      // 1. Scene
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x030014, 0.0012);
+
+      // 2. Camera
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+      camera.position.z = 240;
+
+      // 3. Renderer with hardware acceleration
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // 4. Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+
+      const cyanPointLight = new THREE.PointLight(0x00F0FF, 2, 400);
+      cyanPointLight.position.set(-120, 100, 100);
+      scene.add(cyanPointLight);
+
+      const magentaPointLight = new THREE.PointLight(0xFF007F, 2, 400);
+      magentaPointLight.position.set(120, -100, 100);
+      scene.add(magentaPointLight);
+
+      // 5. Build 3D Floating Geometry
+      createFloatingMeshes();
+
+      // 6. Build Interactive Particle System
+      createParticleSystem(currentParticleCount);
+
+      // 7. Event Listeners
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('touchmove', onTouchMove, { passive: true });
+      window.addEventListener('click', onCanvasClick);
+
+      // 8. Start Animation Loop
+      animate();
+    }
+
+    // --- Create 3D Floating Meshes ---
+    function createFloatingMeshes() {
+      // 1. Wireframe Neon Icosahedron
+      const icoGeo = new THREE.IcosahedronGeometry(28, 1);
+      const icoMat = new THREE.MeshStandardMaterial({
+        color: 0x00F0FF,
+        wireframe: true,
+        emissive: 0x00F0FF,
+        emissiveIntensity: 0.4,
+        roughness: 0.2,
+        metalness: 0.8
+      });
+      icosahedronMesh = new THREE.Mesh(icoGeo, icoMat);
+      icosahedronMesh.position.set(90, 35, -20);
+      scene.add(icosahedronMesh);
+
+      // Inner glowing core sphere
+      const coreGeo = new THREE.SphereGeometry(12, 16, 16);
+      const coreMat = new THREE.MeshBasicMaterial({
+        color: 0xFF007F,
+        wireframe: true
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      icosahedronMesh.add(coreMesh);
+
+      // 2. Glossy Metallic Torus Knot
+      const torusGeo = new THREE.TorusKnotGeometry(18, 4.5, 90, 16);
+      const torusMat = new THREE.MeshStandardMaterial({
+        color: 0x8A2BE2,
+        emissive: 0x8A2BE2,
+        emissiveIntensity: 0.3,
+        roughness: 0.1,
+        metalness: 0.9,
+        wireframe: false
+      });
+      torusKnotMesh = new THREE.Mesh(torusGeo, torusMat);
+      torusKnotMesh.position.set(-100, -30, -10);
+      scene.add(torusKnotMesh);
+
+      // 3. Orbiting Octahedron
+      const octGeo = new THREE.OctahedronGeometry(14, 0);
+      const octMat = new THREE.MeshStandardMaterial({
+        color: 0x39FF14,
+        emissive: 0x39FF14,
+        emissiveIntensity: 0.5,
+        wireframe: true
+      });
+      octahedronMesh = new THREE.Mesh(octGeo, octMat);
+      octahedronMesh.position.set(-40, 80, -30);
+      scene.add(octahedronMesh);
+    }
+
+    // --- Create Particle System with Spatial Buffers ---
+    function createParticleSystem(count) {
+      if (particleSystem) {
+        scene.remove(particleSystem);
+        particleGeometry.dispose();
+      }
+
+      currentParticleCount = count;
+      particleGeometry = new THREE.BufferGeometry();
+      
+      particlePositions = new Float32Array(count * 3);
+      particleBasePositions = new Float32Array(count * 3);
+      particleVelocities = new Float32Array(count * 3);
+      particleColors = new Float32Array(count * 3);
+
+      const palette = PALETTES[currentTheme];
+      const radiusX = 350;
+      const radiusY = 250;
+      const radiusZ = 200;
+
+      for (let i = 0; i < count; i++) {
+        const i3 = i * 3;
+        // Natural distributed cloud field
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        const dist = Math.cbrt(Math.random());
+
+        const x = dist * radiusX * Math.sin(phi) * Math.cos(theta);
+        const y = dist * radiusY * Math.sin(phi) * Math.sin(theta);
+        const z = dist * radiusZ * Math.cos(phi);
+
+        particlePositions[i3] = x;
+        particlePositions[i3 + 1] = y;
+        particlePositions[i3 + 2] = z;
+
+        particleBasePositions[i3] = x;
+        particleBasePositions[i3 + 1] = y;
+        particleBasePositions[i3 + 2] = z;
+
+        particleVelocities[i3] = (Math.random() - 0.5) * 0.2;
+        particleVelocities[i3 + 1] = (Math.random() - 0.5) * 0.2;
+        particleVelocities[i3 + 2] = (Math.random() - 0.5) * 0.2;
+
+        const color = palette[Math.floor(Math.random() * palette.length)];
+        particleColors[i3] = color.r;
+        particleColors[i3 + 1] = color.g;
+        particleColors[i3 + 2] = color.b;
+      }
+
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+      particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+
+      // Circular high-performance point texture
+      const canvasTexture = createParticleTexture();
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 2.2,
+        map: canvasTexture,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+
+      particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particleSystem);
+
+      const label = document.getElementById('particle-count-label');
+      if (label) label.innerText = Number(count).toLocaleString();
+    }
+
+    function createParticleTexture() {
+      const c = document.createElement('canvas');
+      c.width = 32;
+      c.height = 32;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.3, 'rgba(255,255,255,0.8)');
+      grad.addColorStop(0.8, 'rgba(255,255,255,0.15)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(16, 16, 16, 0, Math.PI * 2);
+      ctx.fill();
+
+      const texture = new THREE.Texture(c);
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    // --- Interactive Mouse & Touch Raycasting ---
+    function onMouseMove(e) {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      raycaster.ray.intersectPlane(plane, targetVector);
+    }
+
+    function onTouchMove(e) {
+      if (e.touches.length > 0) {
+        mouse.x = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        raycaster.ray.intersectPlane(plane, targetVector);
+      }
+    }
+
+    function onCanvasClick(e) {
+      // Trigger shockwave at mouse location
+      if (targetVector.x !== -9999) {
+        triggerShockwavePulse(targetVector.clone());
+        triggerAudio('shockwave');
+      }
+    }
+
+    function triggerShockwavePulse(origin) {
+      const pos = origin || targetVector.clone();
+      if (pos.x === -9999) pos.set(0, 0, 0);
+
+      shockwaves.push({
+        center: pos,
+        radius: 0,
+        maxRadius: 280,
+        speed: 8.5,
+        strength: 22.0,
+        active: true
+      });
+    }
+
+    // --- Physics Simulation Loop ---
+    function updatePhysics(delta) {
+      if (!particlePositions) return;
+
+      const time = clock.getElapsedTime();
+      const pos = particlePositions;
+      const base = particleBasePositions;
+      const vel = particleVelocities;
+      const count = currentParticleCount;
+
+      const hasMouse = targetVector.x !== -9999;
+      const mouseX = targetVector.x;
+      const mouseY = targetVector.y;
+      const mouseZ = targetVector.z;
+
+      // Update shockwaves
+      for (let s = shockwaves.length - 1; s >= 0; s--) {
+        const sw = shockwaves[s];
+        sw.radius += sw.speed;
+        sw.strength *= 0.96;
+        if (sw.radius > sw.maxRadius || sw.strength < 0.2) {
+          shockwaves.splice(s, 1);
+        }
+      }
+
+      for (let i = 0; i < count; i++) {
+        const i3 = i * 3;
+        let px = pos[i3];
+        let py = pos[i3 + 1];
+        let pz = pos[i3 + 2];
+
+        // 1. Return toward base position (spring tether)
+        const springK = isZeroGravity ? 0.003 : 0.015;
+        vel[i3] += (base[i3] - px) * springK;
+        vel[i3 + 1] += (base[i3 + 1] - py) * springK;
+        vel[i3 + 2] += (base[i3 + 2] - pz) * springK;
+
+        // 2. Ambient harmonic oscillation
+        const waveScale = isZeroGravity ? 0.08 : 0.03;
+        vel[i3] += Math.sin(time * 0.8 + pz * 0.02) * waveScale;
+        vel[i3 + 1] += Math.cos(time * 0.9 + px * 0.02) * waveScale;
+
+        // 3. Mouse Force Field Dynamics
+        if (hasMouse) {
+          const dx = px - mouseX;
+          const dy = py - mouseY;
+          const dz = pz - mouseZ;
+          const distSq = dx * dx + dy * dy + dz * dz;
+          const dist = Math.sqrt(distSq);
+
+          if (currentForceField === 'repel') {
+            const repelRadius = 85;
+            if (dist < repelRadius && dist > 0.001) {
+              const force = (1 - dist / repelRadius) * 2.8;
+              vel[i3] += (dx / dist) * force;
+              vel[i3 + 1] += (dy / dist) * force;
+              vel[i3 + 2] += (dz / dist) * force;
+            }
+          } else if (currentForceField === 'vortex') {
+            const vortexRadius = 160;
+            if (dist < vortexRadius && dist > 1.0) {
+              // Inward gravity
+              const inwardForce = (1 - dist / vortexRadius) * 0.6;
+              vel[i3] -= (dx / dist) * inwardForce;
+              vel[i3 + 1] -= (dy / dist) * inwardForce;
+
+              // Tangential rotational swirl
+              const spinSpeed = 1.6;
+              vel[i3] += (-dy / dist) * spinSpeed;
+              vel[i3 + 1] += (dx / dist) * spinSpeed;
+            }
+          }
+        }
+
+        // 4. Gravitational Shockwave Physics
+        for (let s = 0; s < shockwaves.length; s++) {
+          const sw = shockwaves[s];
+          const sdx = px - sw.center.x;
+          const sdy = py - sw.center.y;
+          const sdz = pz - sw.center.z;
+          const sdist = Math.sqrt(sdx * sdx + sdy * sdy + sdz * sdz);
+
+          const diff = Math.abs(sdist - sw.radius);
+          if (diff < 30 && sdist > 0.1) {
+            const shockPush = (1 - diff / 30) * sw.strength * 0.35;
+            vel[i3] += (sdx / sdist) * shockPush;
+            vel[i3 + 1] += (sdy / sdist) * shockPush;
+            vel[i3 + 2] += (sdz / sdist) * shockPush;
+          }
+        }
+
+        // 5. Velocity Damping
+        const damping = isZeroGravity ? 0.985 : 0.94;
+        vel[i3] *= damping;
+        vel[i3 + 1] *= damping;
+        vel[i3 + 2] *= damping;
+
+        // Apply velocities
+        pos[i3] += vel[i3];
+        pos[i3 + 1] += vel[i3 + 1];
+        pos[i3 + 2] += vel[i3 + 2];
+      }
+
+      particleGeometry.attributes.position.needsUpdate = true;
+    }
+
+    // --- Main Render Loop (60 FPS) ---
+    let frameCount = 0;
+    let lastTime = performance.now();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      // Physics step
+      updatePhysics(delta);
+
+      // Rotate 3D floating geometric objects
+      if (icosahedronMesh) {
+        icosahedronMesh.rotation.x = time * 0.25;
+        icosahedronMesh.rotation.y = time * 0.35;
+        icosahedronMesh.position.y += Math.sin(time * 1.5) * 0.08;
+      }
+      if (torusKnotMesh) {
+        torusKnotMesh.rotation.x = time * 0.3;
+        torusKnotMesh.rotation.z = time * 0.2;
+        torusKnotMesh.position.y += Math.cos(time * 1.2) * 0.07;
+      }
+      if (octahedronMesh) {
+        octahedronMesh.rotation.y = time * 0.4;
+        octahedronMesh.rotation.z = time * 0.3;
+      }
+
+      // Parallax camera easing based on mouse
+      camera.position.x += ((mouse.x * 25) - camera.position.x) * 0.05;
+      camera.position.y += ((mouse.y * 20) - camera.position.y) * 0.05;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+
+      // FPS Telemetry monitoring
+      frameCount++;
+      const now = performance.now();
+      if (now - lastTime >= 1000) {
+        const fpsCounter = document.getElementById('fps-counter');
+        if (fpsCounter) fpsCounter.innerText = `${frameCount} FPS`;
+        frameCount = 0;
+        lastTime = now;
+      }
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // --- Zero-G Mode Toggle ---
+    function toggleZeroGravity() {
+      isZeroGravity = !isZeroGravity;
+      document.body.classList.toggle('zero-g-active', isZeroGravity);
+      
+      const label = document.getElementById('zero-g-label');
+      const btn = document.getElementById('zero-g-toggle-btn');
+      
+      if (isZeroGravity) {
+        if (label) label.innerText = 'Zero-G: ACTIVE';
+        if (btn) {
+          btn.classList.add('bg-[#39FF14]/20', 'border-[#39FF14]', 'text-[#39FF14]');
+          btn.classList.remove('bg-[#00F0FF]/10', 'border-[#00F0FF]/30', 'text-[#00F0FF]');
+        }
+        triggerAudio('shockwave');
+        triggerShockwavePulse(new THREE.Vector3(0, 0, 0));
+      } else {
+        if (label) label.innerText = 'Zero-G: OFF';
+        if (btn) {
+          btn.classList.remove('bg-[#39FF14]/20', 'border-[#39FF14]', 'text-[#39FF14]');
+          btn.classList.add('bg-[#00F0FF]/10', 'border-[#00F0FF]/30', 'text-[#00F0FF]');
+        }
+        triggerAudio('click');
+      }
+    }
+
+    // --- HUD Controls Handlers ---
+    function setForceField(mode, el) {
+      currentForceField = mode;
+      document.querySelectorAll('.hud-mode-btn').forEach(btn => {
+        btn.classList.remove('bg-[#00F0FF]/20', 'text-[#00F0FF]', 'border-[#00F0FF]/50', 'font-bold');
+        btn.classList.add('bg-white/5', 'text-slate-300', 'border-white/10');
+      });
+      el.classList.add('bg-[#00F0FF]/20', 'text-[#00F0FF]', 'border-[#00F0FF]/50', 'font-bold');
+      triggerAudio('click');
+    }
+
+    function setColorTheme(theme, el) {
+      currentTheme = theme;
+      document.querySelectorAll('.hud-theme-btn').forEach(btn => {
+        btn.classList.remove('bg-[#00F0FF]/20', 'text-[#00F0FF]', 'border-[#00F0FF]/50', 'font-bold');
+        btn.classList.add('bg-white/5', 'text-slate-300', 'border-white/10');
+      });
+      el.classList.add('bg-[#00F0FF]/20', 'text-[#00F0FF]', 'border-[#00F0FF]/50', 'font-bold');
+
+      // Update particle colors in real-time
+      if (particleGeometry) {
+        const palette = PALETTES[theme];
+        const colors = particleColors;
+        for (let i = 0; i < currentParticleCount; i++) {
+          const i3 = i * 3;
+          const col = palette[Math.floor(Math.random() * palette.length)];
+          colors[i3] = col.r;
+          colors[i3 + 1] = col.g;
+          colors[i3 + 2] = col.b;
+        }
+        particleGeometry.attributes.color.needsUpdate = true;
+      }
+      triggerAudio('click');
+    }
+
+    function updateParticleCount(val) {
+      createParticleSystem(parseInt(val, 10));
+    }
+
+    function toggleHUD() {
+      const panel = document.getElementById('hud-panel');
+      if (panel) {
+        panel.classList.toggle('hidden');
+        triggerAudio('click');
+      }
+    }
+
+    // --- Card Expand Drawer Handler ---
+    function toggleCardDrawer(id, btn) {
+      const drawer = document.getElementById(id);
+      if (!drawer) return;
+      const isOpen = !drawer.classList.contains('hidden');
+      const text = btn.querySelector('.drawer-btn-text');
+      const icon = btn.querySelector('.drawer-icon');
+
+      if (isOpen) {
+        drawer.classList.add('hidden');
+        if (text) text.innerText = 'View Analysis Breakdown →';
+        if (icon) icon.classList.remove('rotate-180');
+      } else {
+        drawer.classList.remove('hidden');
+        if (text) text.innerText = 'Collapse Details ↑';
+        if (icon) icon.classList.add('rotate-180');
+      }
+    }
+
+    // --- Stepper Navigation Handler ---
+    const STEPS_DATA = {
+      1: {
+        badge: "STEP 01 // DIAGNOSTIC & RISK AUDIT",
+        title: "Understand Business, Cap-Table & Risk Vectors",
+        desc: "Before formulating advisory positions, we conduct an exhaustive forensic assessment of your corporate anatomy: revenue recognition policies, cross-border treaty exposures, cap-table debt covenants, and regulatory compliance obligations.",
+        checks: [
+          "360-degree Cap Table & Shareholder Agreement Scan",
+          "Multi-jurisdictional Transfer Pricing & PE Risk Audit",
+          "Identification of Latent Balance Sheet Vulnerabilities"
+        ],
+        telemetry: {
+          title: "// DIAGNOSTIC_TELEMETRY",
+          metrics: [
+            ["Audit Vectors Analyzed:", "142 Factors"],
+            ["Regulatory Gap Detection:", "0 Latent Flaws"],
+            ["Average Diagnostic Turnaround:", "72 Hours"],
+            ["Partner-Led Involvement:", "100% Guaranteed"]
+          ]
+        }
+      },
+      2: {
+        badge: "STEP 02 // STRUCTURING & TAX JURISDICTIONS",
+        title: "Structure Right from Day One for Next-Gen Scale",
+        desc: "Entity formation across Delaware, Singapore, Dubai, or India must align with long-term capital repatriation, investor rights, and Section 9/DTAA tax treaty protections.",
+        checks: [
+          "Delaware/Singapore Holding & Subsidiary Architecture",
+          "Intellectual Property (IP) Protection & Licensing Hubs",
+          "Founder Vesting, Reverse Dilution & Clean Cap Tables"
+        ],
+        telemetry: {
+          title: "// STRUCTURAL_TELEMETRY",
+          metrics: [
+            ["Holding Entities Formed:", "380+ Groups"],
+            ["Tax Friction Saved:", "$42M+ Saved"],
+            ["Cross-Border Compliance:", "100% Passed"],
+            ["FDI & RBI Reporting:", "Flawless"]
+          ]
+        }
+      },
+      3: {
+        badge: "STEP 03 // STATUTORY PRECISION & AUDIT TRAIL",
+        title: "Precision in Every Number & Statutory Obligation",
+        desc: "Financial data is engineered to the standard of court and international auditor scrutiny. Real-time reconciliation, monthly closings in 48 hours, and automated tax filings.",
+        checks: [
+          "Ind AS, US GAAP & IFRS Dual Accounting Mapping",
+          "Automated GST, TDS & Withholding Tax Settlement",
+          "Internal Financial Controls & Fraud Prevention Controls"
+        ],
+        telemetry: {
+          title: "// ASSURANCE_TELEMETRY",
+          metrics: [
+            ["Monthly Books Closing:", "< 48 Hours"],
+            ["Reconciliation Error Rate:", "0.00% Zero-Loss"],
+            ["Big-4 Audit Clearance:", "100% Clean Sheet"],
+            ["Statutory Timeliness:", "On-Schedule"]
+          ]
+        }
+      },
+      4: {
+        badge: "STEP 04 // AUTOMATION & CAPITAL EXPANSION",
+        title: "Built for Next-Stage Scalability, AI & Transactions",
+        desc: "We embed custom algorithmic workflows and AI pipelines directly into your finance stack, positioning your organization for institutional due diligence, strategic M&A, or public IPO listing.",
+        checks: [
+          "Algorithmic Virtual Data Room (VDR) Management",
+          "Enterprise Autonomous ERP Middlewares",
+          "M&A Synergy Valuation & Board Exit Strategies"
+        ],
+        telemetry: {
+          title: "// SCALE_TELEMETRY",
+          metrics: [
+            ["Fundraise Success Rate:", "96.4%"],
+            ["AI Hours Automating Tasks:", "> 12,000 hrs/yr"],
+            ["Average Post-Merger Synergies:", "+34% Realized"],
+            ["Long-Term Client Retention:", "98.5%"]
+          ]
+        }
+      }
+    };
+
+    function setActiveStep(stepNum) {
+      triggerAudio('click');
+      document.querySelectorAll('.step-tab').forEach((tab, index) => {
+        const num = index + 1;
+        if (num === stepNum) {
+          tab.classList.add('border-l-[#00F0FF]', 'bg-[#00F0FF]/10', 'text-white');
+          tab.classList.remove('border-l-transparent', 'text-slate-400');
+          tab.querySelector('.font-mono').classList.remove('text-slate-500');
+          tab.querySelector('.font-mono').classList.add('text-[#00F0FF]');
+        } else {
+          tab.classList.remove('border-l-[#00F0FF]', 'bg-[#00F0FF]/10', 'text-white');
+          tab.classList.add('border-l-transparent', 'text-slate-400');
+          tab.querySelector('.font-mono').classList.remove('text-[#00F0FF]');
+          tab.querySelector('.font-mono').classList.add('text-slate-500');
+        }
+      });
+
+      const data = STEPS_DATA[stepNum];
+      const container = document.getElementById('step-content');
+      if (!container || !data) return;
+
+      container.style.opacity = '0';
+      setTimeout(() => {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7">
+              <span class="inline-block px-3 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] font-mono text-xs font-bold mb-4 border border-[#00F0FF]/30">
+                ${data.badge}
+              </span>
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-white mb-4">
+                ${data.title}
+              </h3>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                ${data.desc}
+              </p>
+              <div class="space-y-3 font-mono text-xs text-slate-300">
+                ${data.checks.map(c => `<div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#00F0FF]"></i> ${c}</div>`).join('')}
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-black/40 p-6 rounded-2xl border border-white/10 font-mono text-xs text-slate-300">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                <span class="text-[#00F0FF]">${data.telemetry.title}</span>
+                <span class="text-emerald-400">STATUS: NOMINAL</span>
+              </div>
+              <div class="space-y-2.5">
+                ${data.telemetry.metrics.map(([label, val]) => `<div class="flex justify-between"><span>${label}</span> <span class="text-white font-bold">${val}</span></div>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        lucide.createIcons();
+        container.style.opacity = '1';
+      }, 150);
+    }
+
+    // --- Interactive Form Submit Handler ---
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      triggerAudio('shockwave');
+
+      const submitBtn = document.getElementById('submit-btn');
+      const feedback = document.getElementById('form-feedback');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Transmitting Telemetry...</span>';
+      }
+
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.innerHTML = '<span>Request Dispatched</span>';
+          submitBtn.classList.remove('from-[#00F0FF]', 'via-[#8A2BE2]', 'to-[#FF007F]');
+          submitBtn.classList.add('bg-[#39FF14]', 'text-black');
+        }
+        if (feedback) {
+          feedback.classList.remove('hidden');
+        }
+      }, 800);
+    }
+
+    // --- Mobile Menu Toggle ---
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        triggerAudio('click');
+      }
+    }
+
+    // --- KPI Stat Counter Animation on Scroll/Load ---
+    function initStatCounters() {
+      const counters = document.querySelectorAll('.stat-counter');
+      counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const isDecimal = counter.getAttribute('data-decimal') === '1';
+        let count = 0;
+        const speed = 40;
+        const increment = target / speed;
+
+        const updateCount = () => {
+          count += increment;
+          if (count < target) {
+            counter.innerText = (isDecimal ? count.toFixed(1) : Math.ceil(count)) + suffix;
+            setTimeout(updateCount, 25);
+          } else {
+            counter.innerText = (isDecimal ? target.toFixed(1) : target) + suffix;
+          }
+        };
+        updateCount();
+      });
+    }
+
+    // Initialize Everything on Window Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initThree();
+      lucide.createIcons();
+      initStatCounters();
+    });
+  </script>
+</body>
+</html>
